@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            content/blog
+            scripts/check-scheduled-posts.mjs
       - uses: actions/setup-node@v4
         with:
           node-version: 22
