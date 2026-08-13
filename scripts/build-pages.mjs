@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const out = path.join(root, "dist-pages");
 const siteUrl = process.env.SITE_URL || "https://www.jammintrivia.com";
+const inquiryUrl = "https://jdjclients.com/request_information.asp?djidnumber=23469";
 async function loadPosts() {
   const directory = path.join(root, "content", "wordpress");
   try {
@@ -103,6 +104,7 @@ function safeLegacyHtml(value = "") {
     .replace(/\son\w+=("[^"]*"|'[^']*')/gi, "")
     .replace(/javascript:/gi, "")
     .replace(/https?:\/\/(?:www\.)?jammintrivia\.com/gi, "")
+    .replace(/href=(['"])\/client-area\/?\1/gi, (_match, quote) => `href=${quote}${inquiryUrl}${quote}`)
     .replace(/(["'(])\/([^"'()]*wp-content\/uploads\/)/gi, "$1https://www.jammintrivia.com/$2")
     .replace(/(["'(])\/graphics\//gi, "$1https://www.jammintrivia.com/graphics/");
 }
@@ -118,14 +120,14 @@ function nav() {
       <a href="/bar-owners-managers/">For Venues</a>
       <a href="/how-to-play/">How to Play</a>
       <a href="/blog/">Blog</a>
-      <a class="nav-cta" href="/client-area/">Get Started</a>
+      <a class="nav-cta" href="${inquiryUrl}">Get Started</a>
     </nav>
   </header>`;
 }
 
 function footer() {
-  return `<section class="final-cta"><div><p class="eyebrow">Ready to turn up a slow night?</p><h2>Bring the JAMMIN’ experience to your venue.</h2></div><a class="button light" href="/client-area/">Book a free consultation</a></section>
-  <footer class="site-footer"><div class="footer-grid"><div><img src="${logo}" alt="JAMMIN' Trivia" width="220" height="83"><p>Restaurant, pub, bar, brewery and corporate trivia entertainment across Colorado, Georgia and Oregon.</p></div><div><h3>Explore</h3><a href="/where-to-play/">Where to Play</a><a href="/services/">Services</a><a href="/history/">Our History</a><a href="/blog/">Blog & News</a></div><div><h3>Connect</h3><a href="tel:8004451204">800-445-1204</a><a href="/client-area/">Contact Us</a><a href="https://www.facebook.com/JAMMINTrivia/" rel="noopener">Facebook</a><a href="https://www.instagram.com/jammintrivia/" rel="noopener">Instagram</a></div></div><div class="legal"><span>© ${new Date().getFullYear()} Infinity Entertainment. All rights reserved.</span><a href="/privacy-policy/">Privacy Policy</a></div></footer>`;
+  return `<section class="final-cta"><div><p class="eyebrow">Ready to turn up a slow night?</p><h2>Bring the JAMMIN’ experience to your venue.</h2></div><a class="button light" href="${inquiryUrl}">Book a free consultation</a></section>
+  <footer class="site-footer"><div class="footer-grid"><div><img src="${logo}" alt="JAMMIN' Trivia" width="220" height="83"><p>Restaurant, pub, bar, brewery and corporate trivia entertainment across Colorado, Georgia and Oregon.</p></div><div><h3>Explore</h3><a href="/where-to-play/">Where to Play</a><a href="/services/">Services</a><a href="/history/">Our History</a><a href="/blog/">Blog & News</a></div><div><h3>Connect</h3><a href="tel:8004451204">800-445-1204</a><a href="${inquiryUrl}">Contact Us</a><a href="https://www.facebook.com/JAMMINTrivia/" rel="noopener">Facebook</a><a href="https://www.instagram.com/jammintrivia/" rel="noopener">Instagram</a></div></div><div class="legal"><span>© ${new Date().getFullYear()} Infinity Entertainment. All rights reserved.</span><a href="/privacy-policy/">Privacy Policy</a></div></footer>`;
 }
 
 function layout({ title, description, pathName = "/", body, image = hero, extraHead = "" }) {
@@ -134,7 +136,7 @@ function layout({ title, description, pathName = "/", body, image = hero, extraH
 }
 
 function heroBlock({ eyebrow, title, copy, buttons = true, compact = false, background = hero }) {
-  return `<section class="page-hero ${compact ? "compact" : ""}" style="--hero:url('${background}')"><div class="hero-shade"></div><div class="hero-content"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p>${copy}</p>${buttons ? `<div class="button-row"><a class="button" href="/where-to-play/">Find a show</a><a class="button ghost" href="/client-area/">Bring us to your venue</a></div>` : ""}</div></section>`;
+  return `<section class="page-hero ${compact ? "compact" : ""}" style="--hero:url('${background}')"><div class="hero-shade"></div><div class="hero-content"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p>${copy}</p>${buttons ? `<div class="button-row"><a class="button" href="/where-to-play/">Find a show</a><a class="button ghost" href="${inquiryUrl}">Bring us to your venue</a></div>` : ""}</div></section>`;
 }
 
 function contactForm(subject = "JAMMIN' Trivia inquiry") {
@@ -168,7 +170,7 @@ function servicesPage() {
 }
 
 function servicePage(service) {
-  const body = `${heroBlock({ eyebrow: service.eyebrow, title: service.title, copy: service.copy, compact: true, background: service.image })}<section class="section split"><div><p class="eyebrow">Turnkey entertainment</p><h2>Everything needed for a night guests remember.</h2><p>JAMMIN’ provides a trained host, professional sound and presentation, gameplay technology, scoring and a proven show format. Weekly venue programs also include marketing support and complimentary promotional materials.</p><ul class="checklist"><li>Professional DJ host or emcee</li><li>Electronic or mobile gameplay</li><li>Visual presentation and sound</li><li>Promotion and signage support</li><li>Flexible formats for venues and private events</li></ul></div><aside class="contact-panel"><h3>Ask about ${service.title}</h3><p>Tell us about your venue or event and we’ll recommend the best format.</p>${contactForm(`${service.title} inquiry`)}</aside></section>`;
+  const body = `${heroBlock({ eyebrow: service.eyebrow, title: service.title, copy: service.copy, compact: true, background: service.image })}<section class="section split"><div><p class="eyebrow">Turnkey entertainment</p><h2>Everything needed for a night guests remember.</h2><p>JAMMIN’ provides a trained host, professional sound and presentation, gameplay technology, scoring and a proven show format. Weekly venue programs also include marketing support and complimentary promotional materials.</p><ul class="checklist"><li>Professional DJ host or emcee</li><li>Electronic or mobile gameplay</li><li>Visual presentation and sound</li><li>Promotion and signage support</li><li>Flexible formats for venues and private events</li></ul></div><aside class="contact-panel"><h3>Ask about ${service.title}</h3><p>Tell us about your venue or event and we’ll recommend the best format.</p><a class="button" href="${inquiryUrl}">Request information</a></aside></section>`;
   return layout({ title: service.title, description: service.copy, pathName: `/services/${service.slug}/`, body, image: service.image });
 }
 
@@ -178,7 +180,7 @@ function locationsPage() {
 }
 
 function mapPage({ state, pathName, mapUrl }) {
-  const body = `${heroBlock({ eyebrow: "Where to play", title: `${state} locations`, copy: "Click a marker to see venue details and start planning your next JAMMIN’ night.", compact: true, background: stateImages[state.toLowerCase()] })}<section class="section map-section"><iframe src="${mapUrl}" title="JAMMIN' Trivia ${state} locations" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-note"><h2>Don’t see a location near you?</h2><p>Ask your favorite bar, restaurant or brewery to bring JAMMIN’ Trivia to the neighborhood.</p><a class="button" href="/client-area/">Recommend a venue</a></div></section>`;
+  const body = `${heroBlock({ eyebrow: "Where to play", title: `${state} locations`, copy: "Click a marker to see venue details and start planning your next JAMMIN’ night.", compact: true, background: stateImages[state.toLowerCase()] })}<section class="section map-section"><iframe src="${mapUrl}" title="JAMMIN' Trivia ${state} locations" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-note"><h2>Don’t see a location near you?</h2><p>Ask your favorite bar, restaurant or brewery to bring JAMMIN’ Trivia to the neighborhood.</p><a class="button" href="${inquiryUrl}">Recommend a venue</a></div></section>`;
   return layout({ title: `${state} Trivia Locations`, description: `Find JAMMIN' Trivia shows and venue locations in ${state}.`, pathName, body, image: stateImages[state.toLowerCase()] });
 }
 
@@ -202,7 +204,7 @@ function blogPost(post) {
 function legacyPage(page) {
   const description = textOnly(page.excerpt || page.content).slice(0, 155) || `${page.title} from JAMMIN' Trivia.`;
   let content = safeLegacyHtml(page.content);
-  if (page.path === "/client-area/") content = `<div class="contact-intro"><h2>Let’s build your next great night.</h2><p>Please share a few details and our team will respond as soon as possible. For a free consultation, call <a href="tel:3033089700">303-308-9700</a>.</p></div>${contactForm("Website contact request")}`;
+  if (page.path === "/client-area/") content = `<div class="contact-intro"><h2>Let’s build your next great night.</h2><p>Tell us about your venue or event and our team will respond as soon as possible.</p><a class="button" href="${inquiryUrl}">Request information</a></div>`;
   if (page.path === "/submit-a-question/") content = `<div class="contact-intro"><h2>Submit a trivia question</h2><p>Have a great question for the game? Send the category, question and correct answer to our team.</p></div>${contactForm("Trivia question submission")}`;
   const body = `${heroBlock({ eyebrow: "JAMMIN’ Trivia", title: escapeHtml(page.title), copy: description, compact: true, buttons: false })}<section class="section article-body legacy-content">${content}</section>`;
   return layout({ title: page.title, description, pathName: page.path, body, image: page.featured || hero });
@@ -266,7 +268,7 @@ const staticRoutes = ["/", "/services/", "/where-to-play/", "/colorado-locations
 const sitemapRoutes = [...new Set([...staticRoutes, ...pages.map((page) => page.path), ...allPosts.map((post) => post.path)])];
 await fs.writeFile(path.join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapRoutes.map((route) => `<url><loc>${siteUrl}${route}</loc></url>`).join("")}</urlset>`);
 await fs.writeFile(path.join(out, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
-await fs.writeFile(path.join(out, "_redirects"), `/events/search-locations-colorado/ /colorado-locations/ 301\n/homepage/ / 301\n`);
+await fs.writeFile(path.join(out, "_redirects"), `/events/search-locations-colorado/ /colorado-locations/ 301\n/homepage/ / 301\n/client-area/ ${inquiryUrl} 302\n`);
 await fs.writeFile(path.join(out, "_headers"), `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  X-Frame-Options: SAMEORIGIN\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
 
 console.log(`Built ${allPosts.length} posts, ${pages.length} imported pages and ${serviceData.length} service pages into dist-pages.`);
