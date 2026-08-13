@@ -1,0 +1,92 @@
+[
+  {
+    "id": 162,
+    "name": "Atlanta Trivia",
+    "slug": "atlanta-trivia"
+  },
+  {
+    "id": 7,
+    "name": "berthoud trivia",
+    "slug": "berthoud-trivia"
+  },
+  {
+    "id": 8,
+    "name": "Blog",
+    "slug": "blog"
+  },
+  {
+    "id": 164,
+    "name": "Colorado Bar Pub Brewery Games",
+    "slug": "colorado-bar-pub-brewery-games"
+  },
+  {
+    "id": 9,
+    "name": "denver Trivia",
+    "slug": "denver-trivia-2"
+  },
+  {
+    "id": 10,
+    "name": "DJ Denver",
+    "slug": "dj-denver"
+  },
+  {
+    "id": 11,
+    "name": "Jammin Teams",
+    "slug": "jammin-teams"
+  },
+  {
+    "id": 12,
+    "name": "new trivia locations",
+    "slug": "new-trivia-locations"
+  },
+  {
+    "id": 13,
+    "name": "News",
+    "slug": "news"
+  },
+  {
+    "id": 163,
+    "name": "olorado bar games",
+    "slug": "olorado-bar-games"
+  },
+  {
+    "id": 14,
+    "name": "Our DJs",
+    "slug": "our-djs"
+  },
+  {
+    "id": 15,
+    "name": "Press Release",
+    "slug": "press-release"
+  },
+  {
+    "id": 16,
+    "name": "Press Releases",
+    "slug": "press-releases"
+  },
+  {
+    "id": 17,
+    "name": "Pub Trivia",
+    "slug": "pub-trivia"
+  },
+  {
+    "id": 18,
+    "name": "Teams",
+    "slug": "teams"
+  },
+  {
+    "id": 19,
+    "name": "Trivia DJ Northern Colorado",
+    "slug": "trivia-dj-northern-colorado"
+  },
+  {
+    "id": 1,
+    "name": "Uncategorized",
+    "slug": "uncategorized"
+  },
+  {
+    "id": 20,
+    "name": "Videos",
+    "slug": "videos"
+  }
+]

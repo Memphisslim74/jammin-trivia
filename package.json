@@ -1,0 +1,14 @@
+{
+  "name": "jammin-trivia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build-pages.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
+    "schedule:check": "node scripts/check-scheduled-posts.mjs"
+  }
+}

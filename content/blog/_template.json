@@ -1,0 +1,9 @@
+{
+  "title": "Blog post title",
+  "slug": "blog-post-url-slug",
+  "description": "One-sentence search description, ideally 145–155 characters.",
+  "publishAt": "2026-09-15T09:00:00-05:00",
+  "draft": true,
+  "image": "/assets/images/new-post-image.webp",
+  "bodyHtml": "<p>Opening paragraph.</p><h2>First section</h2><p>Article content.</p>"
+}
