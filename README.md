@@ -12,6 +12,8 @@ Static Cloudflare Pages rebuild of [jammintrivia.com](https://www.jammintrivia.c
 
 The build creates the homepage, service and location pages, all imported WordPress pages, 1,015 historical blog posts, sitemap, redirects, security headers and robots file.
 
+The one-time `Cache WordPress media` GitHub Action copies legacy uploads into this repository before DNS cutover, so historical post images remain available after the old WordPress host is retired. It runs automatically when first added and can also be started manually from the Actions tab.
+
 ## Write or schedule a blog post
 
 1. Copy `content/blog/_template.json` to a descriptive filename such as `music-bingo-atlanta-fall-2026.json`.
@@ -31,4 +33,4 @@ Open `dist-pages/index.html` through any local static web server. Do not open it
 
 ## Content migration
 
-The imported WordPress data is stored in `content/wordpress/`. Core brand images are stored in `public/assets/legacy/`; historical post media keeps its original WordPress media URL so the complete archive remains visible without bloating routine source updates. Run `npm run import:wordpress` only when intentionally refreshing the archive from the old live site.
+The imported WordPress data is stored in `content/wordpress/`. Core brand images are stored in `public/assets/legacy/`, and the media caching workflow stores historical uploads in `public/assets/wordpress/`. Run the media workflow before DNS cutover; run `npm run import:wordpress` only when intentionally refreshing the archive from the old live site.
