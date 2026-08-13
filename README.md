@@ -25,7 +25,6 @@ The hourly GitHub workflow checks for due posts. When `publishAt` arrives, it ma
 ## Local build
 
 ```bash
-npm ci
 npm run build:pages
 ```
 
@@ -33,4 +32,4 @@ Open `dist-pages/index.html` through any local static web server. Do not open it
 
 ## Content migration
 
-The imported WordPress data is stored in `content/wordpress/`. Core brand images are stored in `public/assets/legacy/`, and cached historical images and documents are stored in `public/assets/wordpress/`. Run `npm run import:wordpress` only when intentionally refreshing the archive from the old live site.
+The imported WordPress data is stored in `content/wordpress/`. Core brand images are stored in `public/assets/legacy/`, and cached historical images and documents are stored in `public/assets/wordpress/`.
