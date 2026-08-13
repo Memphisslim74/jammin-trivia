@@ -5,6 +5,17 @@ const ROOT = process.cwd();
 const CONTENT_DIR = path.join(ROOT, "content", "wordpress");
 const MEDIA_DIR = path.join(ROOT, "public", "assets", "wordpress");
 const SOURCE_ORIGIN = "https://www.jammintrivia.com";
+const MAX_PAGES_ASSET_BYTES = 24 * 1024 * 1024;
+const CACHEABLE_EXTENSIONS = new Set([
+  ".avif",
+  ".gif",
+  ".jpeg",
+  ".jpg",
+  ".pdf",
+  ".png",
+  ".svg",
+  ".webp",
+]);
 const CONTENT_FILES = [
   path.join(CONTENT_DIR, "pages.json"),
   ...Array.from({ length: 21 }, (_, index) =>
@@ -48,6 +59,10 @@ function destinationFor(url) {
   };
 }
 
+function canCache(url) {
+  return CACHEABLE_EXTENSIONS.has(path.extname(url.pathname).toLowerCase());
+}
+
 async function download(url, diskPath) {
   await mkdir(path.dirname(diskPath), { recursive: true });
   let lastError;
@@ -60,6 +75,9 @@ async function download(url, diskPath) {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const body = Buffer.from(await response.arrayBuffer());
       if (!body.length) throw new Error("empty response");
+      if (body.length > MAX_PAGES_ASSET_BYTES) {
+        throw new Error("larger than the Cloudflare Pages asset limit");
+      }
       await writeFile(diskPath, body);
       return body.length;
     } catch (error) {
@@ -82,6 +100,7 @@ for (const filename of CONTENT_FILES) {
       const token = match[0].replace(/[),.;:]+$/, "");
       try {
         const source = normalizeSource(token);
+        if (!canCache(source)) continue;
         const key = source.href;
         if (!occurrences.has(key)) occurrences.set(key, { source, tokens: new Set() });
         occurrences.get(key).tokens.add(token);
